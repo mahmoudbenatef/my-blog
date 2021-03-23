@@ -5,8 +5,12 @@ import {MyApis} from "../apis";
 import {handleLogin} from "./WelcomePage";
 import {Router, Link, Redirect, useNavigate, navigate} from "@reach/router"
 export function Login({handleLogin}) {
-    // const navigate = useNavigate();
-
+    const navigate = useNavigate();
+    const [login, setLogin]= useState([false])
+        if (login === true)
+        {
+            navigate(`/index/home/${handleLogin.userId}` )
+        }
     const [users, setAllUserState]= useState([{}])
     const [user,setUserState]= useState({email:""})
     const [authedUserID,setAuthedUserIDState]= useState()
@@ -26,8 +30,8 @@ export function Login({handleLogin}) {
             if (authedUser[0].id)
             {
                 // this.currentUser= authedUser[0].id;
-                // return authedUser[0].id
-                navigate(`/index/home/${authedUser[0].id}` )
+                return authedUser[0].id
+                // navigate(`/index/home/${authedUser[0].id}` )
             }
             else return {
 
@@ -38,7 +42,7 @@ export function Login({handleLogin}) {
     return (
         <div>
             <div className="mb-3">
-                <label  className="form-label">
+                <label  >
                     Email address
                 </label>
                 <input
@@ -55,7 +59,7 @@ export function Login({handleLogin}) {
                 />
             </div>
             <div className="mb-3">
-                <label forName="exampleFormControlInput1" className="form-label">
+                <label className="form-label">
                     Password
                 </label>
                 <input
@@ -67,7 +71,7 @@ export function Login({handleLogin}) {
                 />
             </div>
             <div className="mb-3">
-                <button className="btb btn-primary" onClick={()=> handleMyLogin(user.email)}> </button>
+                <button className="btb btn-primary" onClick={()=> setLogin(handleLogin.handleLogin(user.email))}> </button>
             </div>
         </div>
 
