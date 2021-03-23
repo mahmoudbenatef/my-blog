@@ -1,9 +1,11 @@
 
 import { useEffect, useState } from "react";
 import { Post } from "../component/post";
-
+import {Link} from "@reach/router";
+import {blogContext} from "../context"
 
 export function HomePage(userId) {
+
   const [posts, setpostState]= useState([])
     useEffect(()=>{
         fetch(`https://jsonplaceholder.typicode.com/posts`)
@@ -14,12 +16,7 @@ export function HomePage(userId) {
 
     } ,[] );
   return(
-      <div>
-        <span> Home  |</span>
-        <span>Posts |</span>
-        <span>Profile|</span>
-        <br>
-      </br>
+      <>
       <div>
        <h1>Home page </h1>
      {posts.map((post)=>{
@@ -28,7 +25,7 @@ export function HomePage(userId) {
       </div>
      
       
-      </div>
+      </>
   )
 
 }

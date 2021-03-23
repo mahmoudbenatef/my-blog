@@ -1,77 +1,29 @@
 import { useEffect, useState } from "react";
 import { Profile } from "../component/Profile";
 import { HomePage } from "../component/HomePage";
-
+import { Login } from "../component/Login";
+import {Router, Link, Redirect, useNavigate} from "@reach/router"
+import {Layout} from "../component/layout"
+import {PrivateRoute} from "./PrivateRoute";
+import {MyApis} from "../apis"
 
 export function WelcomePage() {
-
-    const [users, setAllUserState]= useState([{}])
-    const [login, setLoginState]= useState(false)
-    const [user,setUserState]= useState({email:""})
-    const [authedUserID,setAuthedUserIDState]= useState("")
-    useEffect(()=>{
-        fetch(`https://jsonplaceholder.typicode.com/users`)
-            .then(response => response.json())
-            .then(json => setAllUserState(json))
-            console.log(users)
-       
-
-    } ,[] );
-
-const handleLogin = ()=> {
-    let authedUser = users.filter((tmpUser)=>{
-        if(tmpUser.email == user.email)
-        {
-            console.log(tmpUser.email)
-            return tmpUser
-        }
-    })
-    setAuthedUserIDState(authedUser[0].id)
-    console.log(authedUser)
-    setLoginState(true)
-}
-  return (
-    <div>
-        {!login &&
-            <div>
-        <div className="mb-3">
-            <label forName="exampleFormControlInput1" className="form-label">
-                Email address
-            </label>
-            <input
-
-                type="email"
-                className="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Email Address"
-                value={user.email}
-                onChange={(e) => {
-                    setUserState({email: e.target.value})
-                }}
-
-            />
-        </div>
-            <div className="mb-3">
-            <label forName="exampleFormControlInput1" className="form-label">
-            Password
-            </label>
-            <input
-            type="email"
-            className="form-control"
-            id="exampleFormControlInput1"
-            placeholder="Password"
-            value={user.password}
-            />
-            </div>
-            <div className="mb-3">
-            <button className="btb btn-primary" onClick={()=>handleLogin()}> </button>
-            </div>
-            </div>
-        }
-        { login &&
-             // <HomePage userId={1}> </HomePage>
-            <Profile userId={1}> </Profile>
-        }
-    </div>
+   const api = new MyApis();
+    // const navigate = useNavigate();
+    const handleLogin = (email)=>{
+   const user_id = api.handleLogin(email).then(()=>{
+       // navigate(`/home/1`)
+       console.log(user_id)
+       }
+   );
+   }
+    return (
+      <Router>
+              <PrivateRoute as={Layout} path="/index" isLoggedin={true}>
+                  <HomePage  path="/home/:userId"/>
+                  <Profile  path="profile/:userId"/>
+              </PrivateRoute>
+          <Login handleLogin={handleLogin} path="/login" />
+      </Router>
   );
 }
