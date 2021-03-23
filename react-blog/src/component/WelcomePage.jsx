@@ -7,15 +7,19 @@ import {Layout} from "../component/layout"
 import {PrivateRoute} from "./PrivateRoute";
 import {MyApis} from "../apis"
 import{BlogContext}  from "../context"
+import {AddPost} from "../component/AddPost"
 export function WelcomePage() {
     const [user_id, setAllUserState]= useState(0)
+    const [auth, setAuth]= useState(false)
     const api = new MyApis();
+
    const handleLogin = (email) => {
        setAllUserState( api.handleLogin(email))
        // setAllUserState(   api.handleLogin(email))
        console.log(user_id)
        if (user_id)
        {
+           setAuth(true)
 
            return true
        }
@@ -28,9 +32,10 @@ export function WelcomePage() {
     return (
         <BlogContext.Provider value={{user_id:user_id}}>
         <Router>
-              <PrivateRoute as={Layout} path="/index" isLoggedin={true}>
+              <PrivateRoute as={Layout} path="/index" isLoggedin={auth}>
                   <HomePage  path="/home/:userId"/>
                   <Profile  path="profile/:userId"/>
+                  <AddPost  path="addpost/"/>
               </PrivateRoute>
           <Login handleLogin={{handleLogin:handleLogin,userId:user_id}}   path="/login" />
       </Router>

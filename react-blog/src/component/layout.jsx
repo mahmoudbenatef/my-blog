@@ -13,6 +13,7 @@ export function Layout({ children }) {
                 <>
                     <Link to={"/index/home/"+user_id}>Home</Link> |{" "}
                     <Link to={"/index/profile/"+user_id}>Profile</Link> |{" "}
+                    <Link to={"/index/addpost/"}>Add post </Link> |{" "}
                     <br/>
                     {children}
                 </>
