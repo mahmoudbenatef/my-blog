@@ -15,11 +15,13 @@ export function WelcomePage() {
     const api = new MyApis();
 
    const handleLogin = (email) => {
+       console.log("logggg")
        setAllUserState( api.handleLogin(email))
+       setAuth(true)
        console.log(user_id)
        if (user_id)
        {
-           setAuth(true)
+
            return true
        }
        else

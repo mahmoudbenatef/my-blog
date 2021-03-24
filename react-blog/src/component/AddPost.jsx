@@ -1,9 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import {MyApis} from "../apis";
 import {BlogContext} from "../context";
-import {Link} from "@reach/router";
+import {Link, useNavigate} from "@reach/router";
 
 export function AddPost(){
+    const navigate = useNavigate();
+
     const api = new MyApis()
     const [postBody, updatePostBody] = useState("")
     const [postTitle, updatePostTitle] = useState("")
@@ -13,6 +15,13 @@ export function AddPost(){
         addSpecificPost(true);
         api.addPost(postBody,postTitle,user_id);
     },[addSpecificPost])
+
+    const addPost = (postBody,postTitle,user_id)=> {
+        console.log(api.addPost(postBody,postTitle,user_id));
+        navigate(`/index/home/${user_id}` )
+
+        // addSpecificPost(true)
+    }
 
     return(
         <BlogContext.Consumer>
@@ -32,11 +41,11 @@ export function AddPost(){
                         updatePostBody(e.target.value)
                     }}></textarea>
                     <br/>
-                    <Link to={"/index/profile/"+user_id}>
-                        <button onClick={add(postBody,postTitle,user_id)} >Add post</button>
-                    </Link> {" "}
+                    {/*<Link to={"/index/profile/"+user_id}>*/}
+                    {/*    <button onClick={add(postBody,postTitle,user_id)} >Add post</button>*/}
+                    {/*</Link> {" "}*/}
 
-                    {/*<button onClick={add(postBody,postTitle,user_id)} >Add post</button>*/}
+                    <button onClick={()=>addPost(postBody,postTitle,user_id)} >Add post</button>
                 </div>
             }
             </BlogContext.Consumer>

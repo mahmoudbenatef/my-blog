@@ -73,7 +73,6 @@ export function Login({handleLogin}) {
                     value={user.password}
                 />
             </div>
-
                 <button type="submit" className="btb btn-primary" onClick={()=> setLogin(handleLogin.handleLogin(user.email))}>Login </button>
         </div>
         </div>
