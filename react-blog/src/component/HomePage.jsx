@@ -18,10 +18,11 @@ export function HomePage(userId) {
   return(
       <>
       <div>
-       <h1>Home page </h1>
+          <div className="container">
      {posts.map((post)=>{
-       return <div><Post postId={post.id}></Post></div>
-      })} 
+         return <><div className="p-3 mb-2 bg-light text-dark"> <Post postId={post.id}></Post></div> <br></br></>
+      })}
+          </div>
       </div>
      
       

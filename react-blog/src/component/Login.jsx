@@ -40,7 +40,10 @@ export function Login({handleLogin}) {
 
     }
     return (
-        <div>
+        <div className="container">
+            <br/>
+            <br/>
+        <div >
             <div className="mb-3">
                 <label  >
                     Email address
@@ -63,17 +66,16 @@ export function Login({handleLogin}) {
                     Password
                 </label>
                 <input
-                    type="email"
+                    type="password"
                     className="form-control"
                     id="exampleFormControlInput1"
                     placeholder="Password"
                     value={user.password}
                 />
             </div>
-            <div className="mb-3">
-                <button className="btb btn-primary" onClick={()=> setLogin(handleLogin.handleLogin(user.email))}> </button>
-            </div>
-        </div>
 
+                <button type="submit" className="btb btn-primary" onClick={()=> setLogin(handleLogin.handleLogin(user.email))}>Login </button>
+        </div>
+        </div>
     )
 }

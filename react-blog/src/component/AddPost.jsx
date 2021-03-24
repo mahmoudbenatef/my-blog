@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {MyApis} from "../apis";
 import {BlogContext} from "../context";
+import {Link} from "@reach/router";
 
 export function AddPost(){
     const api = new MyApis()
@@ -8,13 +9,15 @@ export function AddPost(){
     const [postTitle, updatePostTitle] = useState("")
     const [postAdded, addSpecificPost] = useState(false)
 
-    const add= ()=>{
+    const add= useCallback((postBody,postTitle,user_id) =>{
+        addSpecificPost(true);
+        api.addPost(postBody,postTitle,user_id);
+    },[addSpecificPost])
 
-    }
     return(
         <BlogContext.Consumer>
             {({user_id})=>
-                <>
+                <div className="container p-3 mb-2 bg-warning text-white">
                     <label> Add post</label>
                     <br/>
                     <label>Title</label>
@@ -29,9 +32,12 @@ export function AddPost(){
                         updatePostBody(e.target.value)
                     }}></textarea>
                     <br/>
+                    <Link to={"/index/profile/"+user_id}>
+                        <button onClick={add(postBody,postTitle,user_id)} >Add post</button>
+                    </Link> {" "}
 
-                    <button onClick={api.addPost(postBody,postTitle,user_id)} ></button>
-                </>
+                    {/*<button onClick={add(postBody,postTitle,user_id)} >Add post</button>*/}
+                </div>
             }
             </BlogContext.Consumer>
 

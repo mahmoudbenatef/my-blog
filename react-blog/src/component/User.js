@@ -11,7 +11,9 @@ export function User (userID){
 
     return(
         <div>
+            <label htmlFor="">Username</label>
             <h1 > {user.name} </h1>
+            <label htmlFor="">email</label>
             <h1 > {user.email} </h1>
             <br/>
             <br/>

@@ -1,16 +1,15 @@
 
 import { useEffect, useState } from "react";
-import {Link} from "@reach/router";
 
-export function Post(postId){
-  
+export function DetailedPost({post_Id}){
+
     const [post, setpostState]= useState({})
     useEffect(()=>{
-        fetch(`https://jsonplaceholder.typicode.com/posts/${postId.postId}`)
+        fetch(`https://jsonplaceholder.typicode.com/posts/${post_Id}`)
             .then(response => response.json())
             .then(json => setpostState(json))
-            console.log(post)
-       
+        console.log(post)
+
 
     } ,[] );
 
@@ -22,10 +21,6 @@ export function Post(postId){
             <div className="card-body">
                 <h5 className="card-title">{post.title}</h5>
                 <p className="card-text">{post.body}</p>
-                <Link to={"/index/post/"+post.id}>
-                    <button className="btn btn-primary">   view post </button>
-                </Link> {" "}
-
             </div>
         </div>
     )

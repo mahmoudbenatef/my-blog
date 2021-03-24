@@ -9,8 +9,6 @@ export  class MyApis{
              .then((users) => this.allUsers = users ))
                    }
      handleLogin  (email) {
-        // var allUsers=[]
-        //         allUsers=json
                 let authedUser = this.allUsers.filter((tmpUser)=>{
                     if(tmpUser.email == email)
                     {

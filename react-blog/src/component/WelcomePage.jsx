@@ -8,6 +8,7 @@ import {PrivateRoute} from "./PrivateRoute";
 import {MyApis} from "../apis"
 import{BlogContext}  from "../context"
 import {AddPost} from "../component/AddPost"
+import {DetailedPost} from "./detailedPost";
 export function WelcomePage() {
     const [user_id, setAllUserState]= useState(0)
     const [auth, setAuth]= useState(false)
@@ -15,12 +16,10 @@ export function WelcomePage() {
 
    const handleLogin = (email) => {
        setAllUserState( api.handleLogin(email))
-       // setAllUserState(   api.handleLogin(email))
        console.log(user_id)
        if (user_id)
        {
            setAuth(true)
-
            return true
        }
        else
@@ -33,6 +32,7 @@ export function WelcomePage() {
         <BlogContext.Provider value={{user_id:user_id}}>
         <Router>
               <PrivateRoute as={Layout} path="/index" isLoggedin={auth}>
+                  <DetailedPost path="/post/:post_Id"></DetailedPost>
                   <HomePage  path="/home/:userId"/>
                   <Profile  path="profile/:userId"/>
                   <AddPost  path="addpost/"/>
